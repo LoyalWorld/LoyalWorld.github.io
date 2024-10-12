@@ -5,7 +5,7 @@ var root = {
         b: 253
     },
     rainbowSpeed: 0.5,
-    rainbow: false,
+    rainbow: true,
     matrixspeed: 50
 };
 
@@ -61,7 +61,7 @@ function draw() {
                 ctx.fillStyle = "red"; // ZERKLY characters in red
             } else {
                 text = characters[Math.floor(Math.random() * characters.length)];
-                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Binary characters in green
+                ctx.fillStyle = 'rgba(0, 255, 0, 1)'; // Binary characters in green
             }
         }
 
