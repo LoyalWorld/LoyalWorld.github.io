@@ -5,7 +5,7 @@ var root = {
         b: 253
     },
     rainbowSpeed: 0.5,
-    rainbow: false,
+    rainbow: true,
     matrixspeed: 50
 };
 
@@ -76,8 +76,22 @@ function draw() {
     }
 }
 
+// Show the welcome message with a delay
+function showWelcomeMessage() {
+    var welcomeMessage = document.getElementById('welcomeMessage');
+    welcomeMessage.classList.add('show'); // Show the message
+
+    // Hide the message after a few seconds
+    setTimeout(function() {
+        welcomeMessage.classList.remove('show'); // Hide the message
+    }, 3000); // Change duration as needed
+}
+
 // Set the drawing interval
 setInterval(draw, root.matrixspeed);
+
+// Call the welcome message function when the script loads
+showWelcomeMessage();
 
 // Function to handle property changes (if needed)
 function livelyPropertyListener(name, val) {
