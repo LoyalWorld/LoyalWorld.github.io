@@ -1,59 +1,53 @@
+/* style.css */
+
+/* General reset */
 * {
     margin: 0;
     padding: 0;
 }
 
+/* Body styling */
 body {
     background: black;
 }
 
+/* Full-screen canvas */
 canvas {
     display: block;
 }
 
-#color {
-    color: #BBB;
-    font-family: helvetica, arial, sans-serif;
-    font-size: 1.2em;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-#overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.5); /* Start scaled up */
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-    color: white; /* Text color */
-    padding: 20px;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-    z-index: 10; /* Ensure it is above the canvas */
-    text-align: center; /* Center the text */
-    opacity: 1; /* Fully visible */
-    transition: transform 1s ease, opacity 1s ease; /* Smooth scale and fade */
-}
-
+/* Welcome message styling */
 .welcome-message {
-    position: fixed;
+    position: fixed; /* Position fixed to stay in the same spot */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Center the box */
     background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-    color: #FFFFFF; /* Change this to white for visibility */
-    font-size: 24px; /* Size of the text */
+    color: white; /* White color for the welcome message */
+    font-size: 24px; /* Font size for the welcome message */
     padding: 20px; /* Padding around the text */
     border-radius: 10px; /* Rounded corners */
     opacity: 0; /* Initially hidden */
     transition: transform 0.5s ease, opacity 0.5s ease; /* Smooth scale and fade effects */
-    z-index: 10; /* Ensure it appears above the canvas */
+    z-index: 20; /* Higher z-index to ensure it appears above the overlay */
 }
 
 .welcome-message.show {
     opacity: 1; /* Fully visible when shown */
     transform: translate(-50%, -50%) scale(1.2); /* Scale up when shown */
 }
+
+/* Overlay styling */
+#overlay {
+    position: fixed; /* Use fixed positioning */
+    top: 0; /* Cover the entire screen */
+    left: 0; /* Cover the entire screen */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    z-index: 10; /* Ensure it is below the welcome message */
+    opacity: 1; /* Fully visible */
+    transition: opacity 1s ease; /* Smooth fade */
+}
+
+/* Add any additional styles if necessary */
