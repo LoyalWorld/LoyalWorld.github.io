@@ -43,7 +43,6 @@ function draw() {
   ctx.fillStyle = "rgba(0,0,0, 0.05)";
   ctx.fillRect(0, 0, c.width, c.height);
 
-  ctx.fillStyle = "#BBB"; // grey text
   ctx.font = font_size + "px arial";
 
   // loop over drops
@@ -62,25 +61,32 @@ function draw() {
       if (wordColumnMap[i] >= specialWord.length) {
         delete wordColumnMap[i];
       }
+
+      // Set color to red for ZERKLY characters
+      ctx.fillStyle = "red";
     } else {
       var randomChoice = Math.random();
       // 5% chance to start drawing "ZERKLY" in this column
       if (randomChoice > 0.95 && drops[i] + specialWord.length < c.height / font_size) {
         wordColumnMap[i] = 0;
         text = specialWord[0]; // Start with the first letter
+
+        // Set color to red for ZERKLY characters
+        ctx.fillStyle = "red";
       } else {
         text = characters[Math.floor(Math.random() * characters.length)];
+        
+        // Apply rainbow or wave color for binary characters
+        if (root.rainbow) {
+          hue += (hueFw) ? 0.01 : -0.01;
+          var rr = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 0) + 128);
+          var rg = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 2) + 128);
+          var rb = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 4) + 128);
+          ctx.fillStyle = 'rgba(' + rr + ',' + rg + ',' + rb + ')';
+        } else {
+          ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')';
+        }
       }
-    }
-
-    if (root.rainbow) {
-      hue += (hueFw) ? 0.01 : -0.01;
-      var rr = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 0) + 128);
-      var rg = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 2) + 128);
-      var rb = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 4) + 128);
-      ctx.fillStyle = 'rgba(' + rr + ',' + rg + ',' + rb + ')';
-    } else {
-      ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')';
     }
 
     // draw the text
