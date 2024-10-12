@@ -5,7 +5,7 @@ var root = {
         b: 253
     },
     rainbowSpeed: 0.5,
-    rainbow: true,
+    rainbow: false, // Set rainbow to false
     matrixspeed: 50
 };
 
@@ -25,17 +25,15 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// The characters (Konkani characters)
-var konkani = "゠アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレワヰヱヲンヺ・ーヽヿ0123456789";
-// Convert the string into an array of single characters
-var characters = konkani.split("");
-var font_size = 14;
-var columns = c.width / font_size; // Number of columns for the rain
+// The characters to fall are the letters of "ZERKLY"
+var characters = ["Z", "E", "R", "K", "L", "Y"];
+var font_size = 36; // Increase font size for visibility
+var columns = Math.floor(c.width / font_size); // Number of columns for the rain
 var drops = [];
 
 // Initialize drops array
 for (var x = 0; x < columns; x++) {
-    drops[x] = 1; // Set initial drop position
+    drops[x] = Math.random() * c.height; // Start drops at random heights
 }
 
 // Drawing the characters
@@ -44,34 +42,21 @@ function draw() {
     ctx.fillStyle = "rgba(0,0,0, 0.05)";
     ctx.fillRect(0, 0, c.width, c.height);
 
-    ctx.fillStyle = "#BBB"; // Grey text
-    ctx.font = font_size + "px arial";
-
-    // Looping over drops
+    // Loop through each drop
     for (var i = 0; i < drops.length; i++) {
-        // Background color for the drop
-        ctx.fillStyle = "rgba(10,10,10, 1)";
-        ctx.fillRect(i * font_size, drops[i] * font_size, font_size, font_size);
-        
-        var text = characters[Math.floor(Math.random() * characters.length)];
-        
-        if (root.rainbow) {
-            hue += (hueFw) ? 0.01 : -0.01;
-            var rr = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 0) + 128);
-            var rg = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 2) + 128);
-            var rb = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 4) + 128);
-            ctx.fillStyle = 'rgba(' + rr + ',' + rg + ',' + rb + ')';
-        } else {
-            ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')';
-        }
+        // Set the color of the letters to red
+        ctx.fillStyle = 'rgba(255, 0, 0, 1)'; // Red color for the letters
+        ctx.font = font_size + "px arial";
 
-        // Draw the text
-        ctx.fillText(text, i * font_size, drops[i] * font_size);
+        // Draw the character from "ZERKLY"
+        var text = characters[i % characters.length]; // Cycle through "ZERKLY"
+        ctx.fillText(text, i * font_size, drops[i]); // Draw each letter
+
         // Incrementing Y coordinate
-        drops[i]++;
+        drops[i] += font_size; // Move down by one font size
         // Reset the drop after it has crossed the screen
         if (drops[i] * font_size > c.height && Math.random() > 0.975) {
-            drops[i] = 0;
+            drops[i] = 0; // Reset to the top
         }
     }
 }
