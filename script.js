@@ -1,8 +1,8 @@
 var root = {
     wavecolor: {  
         r: 125,
-        g: 52,
-        b: 253
+        g: 255, // Change green value to make binary green
+        b: 52
     },
     rainbowSpeed: 0.5,
     rainbow: true,
@@ -33,15 +33,15 @@ var wordColumnMap = {};
 
 // drawing the characters
 function draw() {
-    // translucent BG to show trail
-    ctx.fillStyle = "rgba(0,0,0, 0.05)";
-    ctx.fillRect(0, 0, c.width, c.height);
+    // Remove the translucent background fill to eliminate the trail effect
+    // ctx.fillStyle = "rgba(0,0,0, 0.05)";
+    // ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.font = font_size + "px arial";
 
     // loop over drops
     for (var i = 0; i < drops.length; i++) {
-        ctx.fillStyle = "rgba(10,10,10, 1)";
+        ctx.fillStyle = "rgba(10,10,10, 1)"; // Background for each drop
         ctx.fillRect(i * font_size, drops[i] * font_size, font_size, font_size);
         
         var text;
@@ -61,7 +61,7 @@ function draw() {
                 ctx.fillStyle = "red"; // ZERKLY characters in red
             } else {
                 text = characters[Math.floor(Math.random() * characters.length)];
-                ctx.fillStyle = 'rgba(0, 255, 0, 1)'; // Binary characters in green
+                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Use wavecolor for Binary characters
             }
         }
 
@@ -84,13 +84,19 @@ setTimeout(() => {
     welcomeMessage.classList.remove('show'); // Hide the message after 3 seconds
 }, 3000); // Adjust this duration as needed
 
-// Fade in with scaling effect for the overlay
+// Fade in with scaling effect
 const overlay = document.getElementById('overlay');
-overlay.style.opacity = '1'; // Fully visible at the start
+overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Initial scale
+overlay.style.opacity = '1'; // Fully visible
+
+setTimeout(() => {
+    overlay.style.transform = 'translate(-50%, -50%) scale(1)'; // Scale down
+}, 0); // Set scale to normal immediately
 
 // Fade out overlay after 3 seconds
 setTimeout(() => {
-    overlay.style.opacity = '0'; // Start fading out
+    overlay.style.opacity = '0'; // Start fading
+    overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Scale back up when fading out
 }, 3000); // 3 seconds
 
 function livelyPropertyListener(name, val) {
