@@ -47,6 +47,9 @@
         var c = document.getElementById("c");
         var ctx = c.getContext("2d");
 
+        var hueFw = false;
+        var hue = -0.01;
+
         // making the canvas full screen
         c.height = window.innerHeight;
         c.width = window.innerWidth;
@@ -125,6 +128,16 @@
             overlay.style.opacity = '0'; // Start fading
             overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Scale back up when fading out
         }, 3000); // 3 seconds
+
+        // Resize canvas when the window is resized
+        window.addEventListener('resize', () => {
+            c.height = window.innerHeight;
+            c.width = window.innerWidth;
+            columns = c.width / font_size; // Update the number of columns
+            drops = []; // Reset drops array
+            for (var x = 0; x < columns; x++)
+                drops[x] = 1; // Reinitialize drops
+        });
 
         function livelyPropertyListener(name, val) {
             switch (name) {
