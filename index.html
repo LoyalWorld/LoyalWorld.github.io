@@ -6,45 +6,11 @@
     <link rel="stylesheet" type="text/css" href="style.css"> <!-- Main styling for the canvas -->
     <link rel="stylesheet" type="text/css" href="welcome.css"> <!-- Styling for the welcome message -->
     <title>The Matrix</title>
-    <style>
-        /* Ensure body and html fill the entire viewport */
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevent scroll bars */
-            height: 100%;
-            width: 100%;
-        }
-        /* Full-screen canvas */
-        canvas {
-            display: block; /* Remove margin and padding */
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        /* Welcome message styling */
-        .welcome-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white; /* White color for the welcome message */
-            font-size: 36px; /* Increased font size for better visibility */
-            text-align: center; /* Center the text */
-            opacity: 0; /* Initially hidden */
-            transition: opacity 1s ease; /* Transition for smooth showing/hiding */
-            white-space: nowrap; /* Prevent text wrapping */
-        }
-        /* Show class for welcome message */
-        .welcome-message.show {
-            opacity: 1; /* Show the message */
-        }
-    </style>
 </head>
 <body>
     <canvas id="c"></canvas>
     <div class="welcome-message" id="welcomeMessage">
-        <p>Your System Is Almost Fully Loaded...</p>
+        <p>Your System Is Almost Fully Loaded...</p> 
     </div>
     <div id="overlay" class="overlay"></div>
     <script src="script.js"></script> <!-- Main JavaScript file -->
