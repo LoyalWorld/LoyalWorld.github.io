@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lively Wallpaper</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>The Matrix</title>
     <style>
-        /* Style to ensure the canvas fills the entire screen */
+        /* Ensure body and html fill the entire viewport */
         body, html {
             margin: 0;
             padding: 0;
             overflow: hidden; /* Prevent scroll bars */
             height: 100%;
             width: 100%;
-            background-color: black; /* Background color */
         }
+        /* Full-screen canvas */
         canvas {
+            display: block; /* Remove margin and padding */
             position: absolute;
             top: 0;
             left: 0;
@@ -23,134 +25,6 @@
 </head>
 <body>
     <canvas id="c"></canvas>
-    <script>
-        // Your JavaScript code goes here (the code provided in the previous response)
-        
-        var root = {
-            wavecolor: {  
-                r: 125,
-                g: 52,
-                b: 253
-            },
-            rainbowSpeed: 0.5,
-            rainbow: false, // Set rainbow to false for solid color
-            matrixspeed: 50
-        };
-
-        var c = document.getElementById("c");
-        var ctx = c.getContext("2d");
-
-        var hueFw = false;
-        var hue = -0.01;
-
-        // Resize canvas to fill full screen
-        function resizeCanvas() {
-            c.width = window.innerWidth;
-            c.height = window.innerHeight;
-        }
-
-        // Call resizeCanvas initially and whenever the window is resized
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // the characters (binary and ZERKLY)
-        var binary = "10";
-        var specialWord = "ZERKLY".split("");  // Split ZERKLY into an array of characters
-        // converting the string into an array of single characters
-        var characters = binary.split("");
-        var font_size = 14;
-        var columns = c.width / font_size;  // number of columns for the rain
-        var gradient = ctx.createLinearGradient(0, 10, 0, 200);
-        // an array of drops - one per column
-        var drops = [];
-
-        // initialize drops array
-        for (var x = 0; x < columns; x++)
-            drops[x] = 1;
-
-        // a map to keep track of columns where ZERKLY is being drawn
-        var wordColumnMap = {};
-
-        // drawing the characters
-        function draw() {
-            // translucent BG to show trail
-            ctx.fillStyle = "rgba(0,0,0, 0.05)";
-            ctx.fillRect(0, 0, c.width, c.height);
-
-            ctx.font = font_size + "px arial";
-
-            // loop over drops
-            for (var i = 0; i < drops.length; i++) {
-                // background color for the "rain"
-                ctx.fillStyle = "rgba(10,10,10, 1)";
-                ctx.fillRect(i * font_size, drops[i] * font_size, font_size, font_size);
-                
-                var text;
-                // decide if we are drawing "ZERKLY" in this column
-                if (wordColumnMap[i] !== undefined) {
-                    text = specialWord[wordColumnMap[i]];  // Get the specific letter of ZERKLY
-                    wordColumnMap[i]++;
-
-                    // If we've finished drawing "ZERKLY", reset the map entry for this column
-                    if (wordColumnMap[i] >= specialWord.length) {
-                        delete wordColumnMap[i];
-                    }
-
-                    // Set color to red for ZERKLY characters
-                    ctx.fillStyle = "red";
-                } else {
-                    var randomChoice = Math.random();
-                    // 5% chance to start drawing "ZERKLY" in this column
-                    if (randomChoice > 0.95 && drops[i] + specialWord.length < c.height / font_size) {
-                        wordColumnMap[i] = 0;
-                        text = specialWord[0]; // Start with the first letter
-
-                        // Set color to red for ZERKLY characters
-                        ctx.fillStyle = "red";
-                    } else {
-                        text = characters[Math.floor(Math.random() * characters.length)];
-                        ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Solid green color
-                    }
-                }
-
-                // draw the text
-                ctx.fillText(text, i * font_size, drops[i] * font_size);
-
-                // increment Y coordinate
-                drops[i]++;
-
-                // reset the drop after it has crossed the screen
-                if (drops[i] * font_size > c.height && Math.random() > 0.975)
-                    drops[i] = 0;
-            }
-        }
-
-        setInterval(draw, root.matrixspeed);
-
-        // Welcome box
-        var welcomeBox = document.createElement("div");
-        welcomeBox.innerText = "Welcome, Zerkly \n Your System Is Almost Full Loaded...";
-        welcomeBox.style.position = "absolute";
-        welcomeBox.style.top = "50%";
-        welcomeBox.style.left = "50%";
-        welcomeBox.style.transform = "translate(-50%, -50%) scale(0)";
-        welcomeBox.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-        welcomeBox.style.color = "green"; // Set text color to green
-        welcomeBox.style.padding = "20px";
-        welcomeBox.style.borderRadius = "10px";
-        welcomeBox.style.fontSize = "20px";
-        welcomeBox.style.textAlign = "center";
-        document.body.appendChild(welcomeBox);
-
-        // Scale up and down animation
-        setTimeout(() => {
-            welcomeBox.style.transition = "transform 0.5s ease";
-            welcomeBox.style.transform = "translate(-50%, -50%) scale(1)";
-        }, 1000); // Show the welcome box after 1 second
-
-        setTimeout(() => {
-            welcomeBox.style.transform = "translate(-50%, -50%) scale(0)";
-        }, 5000); // Hide the welcome box after 5 seconds
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
