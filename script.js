@@ -61,7 +61,7 @@ function draw() {
                 ctx.fillStyle = "red"; // ZERKLY characters in red
             } else {
                 text = characters[Math.floor(Math.random() * characters.length)];
-                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Binary characters in specified color
+                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Binary characters in green
             }
         }
 
@@ -75,6 +75,14 @@ function draw() {
 
 // Call draw at the specified interval
 setInterval(draw, root.matrixspeed);
+
+// Show the welcome message and then hide it after a few seconds
+const welcomeMessage = document.getElementById('welcomeMessage');
+welcomeMessage.classList.add('show'); // Show the message
+
+setTimeout(() => {
+    welcomeMessage.classList.remove('show'); // Hide the message after 3 seconds
+}, 3000); // Adjust this duration as needed
 
 // Fade in with scaling effect
 const overlay = document.getElementById('overlay');
