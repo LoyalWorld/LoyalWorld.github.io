@@ -22,12 +22,28 @@
             top: 0;
             left: 0;
         }
+        /* Welcome message styling */
+        .welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white; /* White color for the welcome message */
+            font-size: 24px; /* Font size for the welcome message */
+            text-align: center; /* Center the text */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 1s ease; /* Transition for smooth showing/hiding */
+        }
+        /* Show class for welcome message */
+        .welcome-message.show {
+            opacity: 1; /* Show the message */
+        }
     </style>
 </head>
 <body>
     <canvas id="c"></canvas>
     <div class="welcome-message" id="welcomeMessage">
-        Welcome, Zerkly _LINE DOWN_ Your System Is Almost Fully Loaded...
+        <p>Your System Is Almost Fully Loaded...</p> _LINE DOWN_ 
     </div>
     <script src="script.js"></script> <!-- Main JavaScript file -->
 </body>
