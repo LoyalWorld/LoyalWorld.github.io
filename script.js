@@ -5,7 +5,7 @@ var root = {
         b: 253
     },
     rainbowSpeed: 0.5,
-    rainbow: true,
+    rainbow: false,
     matrixspeed: 50
 };
 
