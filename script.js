@@ -5,7 +5,7 @@ var root = {
         b: 253
     },
     rainbowSpeed: 0.5,
-    rainbow: true,
+    rainbow: false,
     matrixspeed: 50
 };
 
@@ -84,19 +84,13 @@ setTimeout(() => {
     welcomeMessage.classList.remove('show'); // Hide the message after 3 seconds
 }, 3000); // Adjust this duration as needed
 
-// Fade in with scaling effect
+// Fade in with scaling effect for the overlay
 const overlay = document.getElementById('overlay');
-overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Initial scale
-overlay.style.opacity = '1'; // Fully visible
-
-setTimeout(() => {
-    overlay.style.transform = 'translate(-50%, -50%) scale(1)'; // Scale down
-}, 0); // Set scale to normal immediately
+overlay.style.opacity = '1'; // Fully visible at the start
 
 // Fade out overlay after 3 seconds
 setTimeout(() => {
-    overlay.style.opacity = '0'; // Start fading
-    overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Scale back up when fading out
+    overlay.style.opacity = '0'; // Start fading out
 }, 3000); // 3 seconds
 
 function livelyPropertyListener(name, val) {
