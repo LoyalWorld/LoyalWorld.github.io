@@ -1,11 +1,11 @@
 var root = {
   wavecolor: {  
-    r: 125,
-    g: 52,
-    b: 253
+    r: 0,      // Red value for green
+    g: 255,    // Green value for green
+    b: 0       // Blue value for green
   },
   rainbowSpeed: 0.5,
-  rainbow: true,
+  rainbow: false, // Disable the rainbow effect
   matrixspeed: 50
 };
 
@@ -76,16 +76,8 @@ function draw() {
       } else {
         text = characters[Math.floor(Math.random() * characters.length)];
         
-        // Apply rainbow or wave color for binary characters
-        if (root.rainbow) {
-          hue += (hueFw) ? 0.01 : -0.01;
-          var rr = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 0) + 128);
-          var rg = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 2) + 128);
-          var rb = Math.floor(127 * Math.sin(root.rainbowSpeed * hue + 4) + 128);
-          ctx.fillStyle = 'rgba(' + rr + ',' + rg + ',' + rb + ')';
-        } else {
-          ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')';
-        }
+        // Set color to solid green for binary characters
+        ctx.fillStyle = 'rgba(0, 255, 0, 1)'; // Solid green color
       }
     }
 
