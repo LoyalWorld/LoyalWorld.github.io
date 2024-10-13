@@ -34,7 +34,7 @@ var wordColumnMap = {};
 // drawing the characters
 function draw() {
     // Apply a subtle transparency for the trail effect
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";  // 0.05 keeps the rain effect while maintaining the trail
+    ctx.fillStyle = "rgba(0, 0, 0, 0.00)";  // 0.05 keeps the rain effect while maintaining the trail
     ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.font = font_size + "px arial";
