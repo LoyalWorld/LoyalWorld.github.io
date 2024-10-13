@@ -1,49 +1,46 @@
 var root = {
     wavecolor: {  
-        r: 0,    // Red channel set to 0
-        g: 255,  // Green channel set to 255 for pure green
-        b: 0     // Blue channel set to 0
+        r: 0,  // Green for binary numbers
+        g: 255,
+        b: 0
     },
     rainbowSpeed: 0.5,
-    rainbow: false,
+    rainbow: true,
     matrixspeed: 50
 };
 
 var c = document.getElementById("c");
 var ctx = c.getContext("2d");
 
-// Making the canvas full screen
+// making the canvas full screen
 c.height = window.innerHeight;
 c.width = window.innerWidth;
 
-// The characters (binary and ZERKLY)
+// the characters (binary and ZERKLY)
 var binary = "10";
 var specialWord = "ZERKLY".split("");  // Split ZERKLY into an array of characters
 var characters = binary.split("");
 var font_size = 14;
-var columns = c.width / font_size;  // Number of columns for the rain
+var columns = c.width / font_size;  // number of columns for the rain
 var drops = [];
 
-// Initialize drops array
+// initialize drops array
 for (var x = 0; x < columns; x++)
     drops[x] = 1;
 
-// A map to keep track of columns where ZERKLY is being drawn
+// a map to keep track of columns where ZERKLY is being drawn
 var wordColumnMap = {};
 
-// Drawing the characters
+// drawing the characters
 function draw() {
-    // Remove the translucent background fill to eliminate the trail effect
-    // ctx.fillStyle = "rgba(0,0,0, 0.05)";
-    // ctx.fillRect(0, 0, c.width, c.height);
+    // Clear only the top layer to create the trail effect without a background
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";  // Very faint black for the trail effect
+    ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.font = font_size + "px arial";
 
-    // Loop over drops
+    // loop over drops
     for (var i = 0; i < drops.length; i++) {
-        ctx.fillStyle = "rgba(10,10,10, 1)"; // Background for each drop
-        ctx.fillRect(i * font_size, drops[i] * font_size, font_size, font_size);
-        
         var text;
         if (wordColumnMap[i] !== undefined) {
             text = specialWord[wordColumnMap[i]];  // Get the specific letter of ZERKLY
@@ -61,11 +58,11 @@ function draw() {
                 ctx.fillStyle = "red"; // ZERKLY characters in red
             } else {
                 text = characters[Math.floor(Math.random() * characters.length)];
-                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Use wavecolor for Binary characters
+                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Binary characters in green
             }
         }
 
-        // Draw the text
+        // draw the text
         ctx.fillText(text, i * font_size, drops[i] * font_size);
         drops[i]++;
         if (drops[i] * font_size > c.height && Math.random() > 0.975)
