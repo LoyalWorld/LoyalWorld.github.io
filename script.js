@@ -33,8 +33,8 @@ var wordColumnMap = {};
 
 // drawing the characters
 function draw() {
-    // Add a fade effect for the trail, without filling the entire background
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";  // This creates a subtle fade for the trail
+    // Apply a subtle transparency for the trail effect
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";  // 0.05 keeps the rain effect while maintaining the trail
     ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.font = font_size + "px arial";
