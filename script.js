@@ -32,8 +32,8 @@ var wordColumnMap = {};
 
 // drawing the characters
 function draw() {
-    // Slightly fade the canvas for the trail effect
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    // Slightly fade the canvas for the trail effect, but with less opacity to make the letters brighter
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; // Reduce opacity to keep trails but avoid dimming too much
     ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.font = font_size + "px arial";
@@ -57,7 +57,7 @@ function draw() {
                 ctx.fillStyle = "red"; // ZERKLY characters in red
             } else {
                 text = characters[Math.floor(Math.random() * characters.length)];
-                ctx.fillStyle = `rgba(${root.wavecolor.r}, ${root.wavecolor.g}, ${root.wavecolor.b}, 1)`; // Binary characters in green
+                ctx.fillStyle = `rgba(${root.wavecolor.r}, ${root.wavecolor.g}, ${root.wavecolor.b}, 1)`; // Binary characters in bright green
             }
         }
 
