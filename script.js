@@ -5,7 +5,7 @@ var root = {
         b: 0     // Blue channel set to 0
     },
     rainbowSpeed: 0.5,
-    rainbow: true,
+    rainbow: false,
     matrixspeed: 50
 };
 
