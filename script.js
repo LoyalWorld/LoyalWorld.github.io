@@ -1,8 +1,8 @@
 var root = {
     wavecolor: {  
-        r: 125,
-        g: 255, // Change green value to make binary green
-        b: 52
+        r: 0,    // Red channel set to 0
+        g: 255,  // Green channel set to 255 for pure green
+        b: 0     // Blue channel set to 0
     },
     rainbowSpeed: 0.5,
     rainbow: true,
@@ -12,26 +12,26 @@ var root = {
 var c = document.getElementById("c");
 var ctx = c.getContext("2d");
 
-// making the canvas full screen
+// Making the canvas full screen
 c.height = window.innerHeight;
 c.width = window.innerWidth;
 
-// the characters (binary and ZERKLY)
+// The characters (binary and ZERKLY)
 var binary = "10";
 var specialWord = "ZERKLY".split("");  // Split ZERKLY into an array of characters
 var characters = binary.split("");
 var font_size = 14;
-var columns = c.width / font_size;  // number of columns for the rain
+var columns = c.width / font_size;  // Number of columns for the rain
 var drops = [];
 
-// initialize drops array
+// Initialize drops array
 for (var x = 0; x < columns; x++)
     drops[x] = 1;
 
-// a map to keep track of columns where ZERKLY is being drawn
+// A map to keep track of columns where ZERKLY is being drawn
 var wordColumnMap = {};
 
-// drawing the characters
+// Drawing the characters
 function draw() {
     // Remove the translucent background fill to eliminate the trail effect
     // ctx.fillStyle = "rgba(0,0,0, 0.05)";
@@ -39,7 +39,7 @@ function draw() {
 
     ctx.font = font_size + "px arial";
 
-    // loop over drops
+    // Loop over drops
     for (var i = 0; i < drops.length; i++) {
         ctx.fillStyle = "rgba(10,10,10, 1)"; // Background for each drop
         ctx.fillRect(i * font_size, drops[i] * font_size, font_size, font_size);
@@ -65,7 +65,7 @@ function draw() {
             }
         }
 
-        // draw the text
+        // Draw the text
         ctx.fillText(text, i * font_size, drops[i] * font_size);
         drops[i]++;
         if (drops[i] * font_size > c.height && Math.random() > 0.975)
