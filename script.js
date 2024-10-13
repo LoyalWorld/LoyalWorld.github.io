@@ -1,11 +1,9 @@
 var root = {
     wavecolor: {  
-        r: 0,  // Green for binary numbers
+        r: 0,
         g: 255,
         b: 0
     },
-    rainbowSpeed: 0.5,
-    rainbow: true,
     matrixspeed: 50
 };
 
@@ -25,16 +23,17 @@ var columns = c.width / font_size;  // number of columns for the rain
 var drops = [];
 
 // initialize drops array
-for (var x = 0; x < columns; x++)
+for (var x = 0; x < columns; x++) {
     drops[x] = 1;
+}
 
 // a map to keep track of columns where ZERKLY is being drawn
 var wordColumnMap = {};
 
 // drawing the characters
 function draw() {
-    // Apply a subtle transparency for the trail effect
-    ctx.fillStyle = "rgba(0, 0, 0, 0.00)";  // 0.05 keeps the rain effect while maintaining the trail
+    // Slightly fade the canvas for the trail effect
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
     ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.font = font_size + "px arial";
@@ -58,15 +57,18 @@ function draw() {
                 ctx.fillStyle = "red"; // ZERKLY characters in red
             } else {
                 text = characters[Math.floor(Math.random() * characters.length)];
-                ctx.fillStyle = 'rgba(' + root.wavecolor.r + ',' + root.wavecolor.g + ',' + root.wavecolor.b + ')'; // Binary characters in green
+                ctx.fillStyle = `rgba(${root.wavecolor.r}, ${root.wavecolor.g}, ${root.wavecolor.b}, 1)`; // Binary characters in green
             }
         }
 
         // draw the text
         ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+        // reset drop to the top when it reaches the bottom
         drops[i]++;
-        if (drops[i] * font_size > c.height && Math.random() > 0.975)
+        if (drops[i] * font_size > c.height && Math.random() > 0.975) {
             drops[i] = 0;
+        }
     }
 }
 
@@ -80,41 +82,3 @@ welcomeMessage.classList.add('show'); // Show the message
 setTimeout(() => {
     welcomeMessage.classList.remove('show'); // Hide the message after 3 seconds
 }, 3000); // Adjust this duration as needed
-
-// Fade in with scaling effect
-const overlay = document.getElementById('overlay');
-overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Initial scale
-overlay.style.opacity = '1'; // Fully visible
-
-setTimeout(() => {
-    overlay.style.transform = 'translate(-50%, -50%) scale(1)'; // Scale down
-}, 0); // Set scale to normal immediately
-
-// Fade out overlay after 3 seconds
-setTimeout(() => {
-    overlay.style.opacity = '0'; // Start fading
-    overlay.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Scale back up when fading out
-}, 3000); // 3 seconds
-
-function livelyPropertyListener(name, val) {
-    switch (name) {
-        case "matrixColor":
-            root.wavecolor = hexToRgb(val);
-            break;
-        case "rainBow":
-            root.rainbow = val;
-            break;
-        case "rainbowSpeed":
-            root.rainbowSpeed = val / 100;
-            break;
-    }
-}
-
-function hexToRgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
